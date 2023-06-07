@@ -1,6 +1,6 @@
 {
   "require": {
-
+    "ext-pdo": "*"
   },
   "autoload": {
     "psr-4": {
