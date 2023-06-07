@@ -16,4 +16,10 @@ class Contact extends Model
         Database::connect();
         parent::__construct(Database::getConnection(), "contact");
     }
+
+    public function deleteById(int $id): bool
+    {
+        $statement = $this->db->prepare("DELETE FROM $this->table WHERE id = ?");
+        return $statement->execute([$id]);
+    }
 }

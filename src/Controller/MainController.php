@@ -3,16 +3,57 @@
 namespace App\Controller;
 
 use App\Core\View;
+use App\Models\Contact;
 use Exception;
 
 class MainController
 {
+    /**
+     * model contact
+     * @var Contact
+     */
+    private Contact $contactModel;
+
+    public function __construct() {
+        $this->contactModel = new Contact();
+    }
+
     /**
      * @throws Exception
      */
     public function showContacts(): void
     {
         $view = new View('views');
-        $view->render('contacts', ['name' => 'Rendi Saputra']);
+        $contacts = $this->contactModel->getAll();
+        $view->render('contacts', ['contacts' => $contacts]);
+    }
+
+    public function deleteContact(): void
+    {
+        $request = $this->parseRequestBody();
+        $status = $this->contactModel->deleteById($request['id']);
+        echo $status;
+    }
+
+    public function parseRequestBody(): array
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $contentType = $_SERVER['CONTENT_TYPE'];
+            $body = file_get_contents('php://input');
+
+            if ($contentType === 'application/json') {
+                $data = json_decode($body, true);
+
+                if (json_last_error() === JSON_ERROR_NONE) {
+                    return $data;
+                }
+            } else {
+                parse_str($body, $params);
+
+                return $params;
+            }
+        }
+
+        return [];
     }
 }

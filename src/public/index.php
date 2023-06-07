@@ -9,5 +9,6 @@ use App\Core\Router;
 $application = Application::build(dirname(__DIR__));
 
 Router::get('/', [MainController::class, 'showContacts']);
+Router::post('/delete', [MainController::class, 'deleteContact']);
 
 $application->run();
