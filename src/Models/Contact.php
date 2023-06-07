@@ -22,4 +22,13 @@ class Contact extends Model
         $statement = $this->db->prepare("DELETE FROM $this->table WHERE id = ?");
         return $statement->execute([$id]);
     }
+    public function create(array $data): bool
+    {
+        $statement = $this->db->prepare("INSERT INTO $this->table (name, email, message) VALUES (?,?,?)");
+        return $statement->execute([
+            $data['name'],
+            $data['email'],
+            $data['message'],
+        ]);
+    }
 }

@@ -28,6 +28,23 @@ class MainController
         $view->render('contacts', ['contacts' => $contacts]);
     }
 
+    /**
+     * @throws Exception
+     */
+    public function loadAddContact(): void
+    {
+        $view = new View('views');
+        $view->render('create');
+    }
+
+    public function createContact(): never
+    {
+        $request = $this->parseRequestBody();
+        $this->contactModel->create($request);
+        header("Location: /");
+        exit();
+    }
+
     public function deleteContact(): void
     {
         $request = $this->parseRequestBody();
