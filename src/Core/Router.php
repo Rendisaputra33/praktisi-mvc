@@ -106,6 +106,7 @@ class Router
             $controller = new $controller();
 
             if (method_exists($controller, $method)) {
+                array_shift($params);
                 call_user_func_array([$controller, $method], $params);
             } else {
                 http_response_code(404);

@@ -31,4 +31,18 @@ class Contact extends Model
             $data['message'],
         ]);
     }
+
+    public function update(array $data): bool
+    {
+        $statement = $this->db->prepare("
+            UPDATE $this->table SET name = ?, email = ?, message = ? WHERE id = ?
+        ");
+
+        return $statement->execute([
+            $data['name'],
+            $data['email'],
+            $data['message'],
+            $data['id']
+        ]);
+    }
 }

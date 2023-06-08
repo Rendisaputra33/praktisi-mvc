@@ -45,6 +45,30 @@ class MainController
         exit();
     }
 
+    public function loadEditContact(int $id)
+    {
+        $contact = $this->contactModel->getById($id);
+        $view = new View('views');
+        $view->render('edit', [
+            'contact' => $contact
+        ]);
+    }
+
+    public function editContact(int $id): never
+    {
+        $request = $this->parseRequestBody();
+        $request['id'] = $id;
+        $result = $this->contactModel->update($request);
+
+        if ($result) {
+            header("Location: /");
+            exit();
+        }
+
+        header("Location: /edit/$id");
+        exit();
+    }
+
     public function deleteContact(): void
     {
         $request = $this->parseRequestBody();

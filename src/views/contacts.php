@@ -6,7 +6,10 @@
 </head>
 <body class="bg-gray-100">
 <div class="container mx-auto p-8">
-    <h1 class="text-2xl font-bold mb-4">Contact List</h1>
+    <div class="flex justify-between mb-4">
+        <h1 class="text-2xl font-bold">Contact List</h1>
+        <a href="/create" class="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded">Add Contact</a>
+    </div>
     <table class="w-full bg-white border border-gray-200">
         <thead>
         <tr>
@@ -27,6 +30,7 @@
                 <td class="py-2 px-4 border-b"><?= $contact['message'] ?></td>
                 <td class="py-2 px-4 border-b"><?= $contact['created_at'] ?></td>
                 <td class="py-2 px-4 border-b">
+                    <a href="/edit/<?= $contact['id'] ?>" class="bg-blue-500 hover:bg-blue-600 text-white py-1 px-2 rounded">Update</a>
                     <button class="bg-red-500 hover:bg-red-600 text-white py-1 px-2 rounded" onclick="deleteContact(<?= $contact['id'] ?>)">Delete</button>
                 </td>
             </tr>
